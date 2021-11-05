@@ -7,7 +7,8 @@ User = get_user_model()
 class MyConverter:
     regex = '[a-z]+[=][^/]+'
 
-    def to_python(self, value):
+    @staticmethod
+    def to_python(value):
         value = value.split('=')
         if value[0] == 'category':
             value[1] = Categories.objects.get(title=value[1]).id
@@ -15,5 +16,6 @@ class MyConverter:
             value[1] = User.objects.get(username=value[1]).id
         return value
 
-    def to_urls(self, value):
+    @staticmethod
+    def to_urls(value):
         return value

@@ -37,3 +37,14 @@ class News(models.Model):
     def __str__(self):
         return self.title
 
+
+class Comment(models.Model):
+    content = models.TextField(verbose_name='Комментарий')
+    news = models.ForeignKey(News,
+                             on_delete=models.CASCADE,
+                             verbose_name='Новость',
+                             related_name='news_comment')
+    user = models.ForeignKey(get_user_model(),
+                             on_delete=models.PROTECT,
+                             verbose_name='Пользователь',
+                             related_name='user')
